@@ -1,4 +1,5 @@
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 
@@ -53,17 +54,9 @@ public class TaggedImage {
 			this.height = image.getHeight();
 			this.vector = new double[image.getWidth() * image.getHeight()];
 			
-			for(int i = 0; i < image.getWidth(); i++){
-				for(int j = 0; j < image.getHeight(); j++){
-					int rgb = image.getRGB(i, j);
-					
-					int red = (rgb >> 16) & 0xFF;
-					int green = (rgb >> 8) & 0xFF;
-					int blue = rgb & 0xFF;
-					
-					int greyscale_value = (int)(blue*0.11) + (int)(green * 0.59) + (int)(red*0.3);
-					vector[i*image.getHeight() + j] = (double)(greyscale_value & 0xFF);
-				}
+			byte[] data = ((DataBufferByte)image.getData().getDataBuffer()).getData();
+			for(int i = 0; i < data.length; i++){
+				this.vector[i] = data[i];
 			}
 		}
 		

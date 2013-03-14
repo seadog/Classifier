@@ -13,17 +13,14 @@ public class Dataset {
 		for(File dir : base.listFiles()){
 			String dir_name = dir.getAbsolutePath();
 			Tag dir_tag = TagMap.charToTag(dir_name.charAt(dir_name.length()-1));
+			TaggedSet set = new TaggedSet(dir_tag);
 
-			imagesets.add(new TaggedSet(dir_tag));
+			imagesets.add(set);
 			
 			File[] images = dir.listFiles();
 			for(File image : images){
 				TaggedImage x = new TaggedImage(dir_tag, image);
-				for(TaggedSet y : imagesets){
-					if(y.getTag() == dir_tag){
-						y.addImage(x);
-					}
-				}
+				set.addImage(x);
 			}
 		}
 	}
