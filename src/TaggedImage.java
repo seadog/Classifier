@@ -56,7 +56,7 @@ public class TaggedImage {
 			
 			byte[] data = ((DataBufferByte)image.getData().getDataBuffer()).getData();
 			for(int i = 0; i < data.length; i++){
-				this.vector[i] = data[i];
+				this.vector[i] = (double)(data[i] & 0xFF);
 			}
 		}
 		

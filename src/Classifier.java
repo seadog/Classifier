@@ -8,15 +8,16 @@ import java.io.BufferedWriter;
 import org.encog.Encog;
 
 
-public class Main {
+public class Classifier {
 	public static void main(String[] args) throws IOException{
-		Dataset dataset = new Dataset(new File("/home/andy/code/Classifier/images/"));
+		Dataset dataset = new Dataset(new File("/home/andy/data/mnist/training/"));
 		List<TaggedImage> training_set = dataset.getTrainingSet(5000);
 		
 		PrintWriter out_file = new PrintWriter(new BufferedWriter(new FileWriter("/home/andy/out.txt", true)));
 		StringBuilder out_string = new StringBuilder();
 		
-		PCA pca = PCA.train(training_set, 20);
+		PCA pca = PCA.train(training_set, 30);
+		System.out.println(pca.getNumComponents());
 		NeuralNetworks nn = NeuralNetworks.train(training_set, pca);
 
 		List<TaggedImage> images = dataset.getAllImages();
@@ -26,7 +27,7 @@ public class Main {
 			int total = 0;
 
 			for(TaggedImage x : images){
-				if(x.getTag() == TagMap.charToTag(Character.forDigit(i, 10))){
+				if(x.getTag().ordinal() == i){
 					double[] out = nn.apply(x);
 					double max = 0.0;
 					int index = -1;

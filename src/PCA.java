@@ -5,7 +5,7 @@ public class PCA {
 	private PrincipleComponentAnalysis pca;
 	private int components;
 	
-	private PCA(PrincipleComponentAnalysis pca, int components){
+	protected PCA(PrincipleComponentAnalysis pca, int components){
 		this.pca = pca;
 		this.components = components;
 	}
