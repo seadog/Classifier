@@ -11,6 +11,7 @@ public class TaggedImage {
 	private double[] vector = null;
 	private int width = -1;
 	private int height = -1;
+	private double[] pca_vector = null;
 	
 	public TaggedImage(Tag tag, File file){
 		this.image_class = tag;
@@ -37,6 +38,14 @@ public class TaggedImage {
 			getVector();
 		}
 		return this.height;
+	}
+	
+	public void setPCAVector(double[] vector){
+		this.pca_vector = vector;
+	}
+	
+	public double[] getPCAVector(){
+		return this.pca_vector;
 	}
 	
 	public double[] getVector(){
